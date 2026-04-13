@@ -45,40 +45,48 @@ const bookStore = {
 
 // Write your code here!
 
-// 1. SELECT AND CHANGE HEADER
-// Using the ID "header" from your HTML
+/**
+ * 1. HEADER MANIPULATION
+ * Points to the <h1> by ID and updates it with the store name.
+ */
 const mainHeader = document.querySelector('#header');
 mainHeader.textContent = bookStore.name;
 
-// 2. SELECT THE CONTAINER AND CLEANUP
+/**
+ * 2. SELECT THE CONTAINER & CLEANUP
+ * Finds the <ul> where books live and removes the static example.
+ */
 const bookList = document.querySelector('#book-list');
-// Clear out the "Example Title" placeholder
 const placeholder = document.querySelector('#delete-this');
-if (placeholder) placeholder.remove();
 
-// 3. CREATE ELEMENTS FOR EVERY BOOK
+if (placeholder) {
+    placeholder.remove();
+}
+
+/**
+ * 3. DYNAMIC RENDERING
+ * Loops through the library to build and append book cards.
+ */
 bookStore.books.forEach(book => {
-    // Create the bookContainer (as an <li> since it's inside a <ul>)
-    const bookContainer = document.createElement('li');
-    bookContainer.className = 'card'; // Standard styling
+    // Create the list item wrapper
+    const li = document.createElement('li');
 
-    // Create bookTitle (h3 to match the example in your HTML)
-    const bookTitle = document.createElement('h3');
-    bookTitle.textContent = book.title;
+    // Create and fill the Title
+    const h3 = document.createElement('h3');
+    h3.textContent = book.title;
 
-    // Create bookAuthor
-    const bookAuthor = document.createElement('p');
-    bookAuthor.textContent = book.author;
+    // Create and fill the Author
+    const p = document.createElement('p');
+    p.textContent = book.author;
 
-    // Create bookImage
-    const bookImage = document.createElement('img');
-    bookImage.src = book.imageUrl;
-    bookImage.alt = book.title;
+    // Create and configure the Image
+    const img = document.createElement('img');
+    img.src = book.imageUrl;
+    img.alt = book.title;
 
-    // 4. APPEND ELEMENTS
-    // Append the details to the container
-    bookContainer.append(bookTitle, bookAuthor, bookImage);
-    
-    // Append the container to the existing <ul>
-    bookList.append(bookContainer);
+    // ASSEMBLE: Add elements to the li in order
+    li.append(h3, p, img);
+
+    // ATTACH: Add the finished li to the book-list <ul>
+    bookList.append(li);
 });
