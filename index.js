@@ -45,3 +45,40 @@ const bookStore = {
 
 // Write your code here!
 
+// 1. SELECT AND CHANGE HEADER
+// Using the ID "header" from your HTML
+const mainHeader = document.querySelector('#header');
+mainHeader.textContent = bookStore.name;
+
+// 2. SELECT THE CONTAINER AND CLEANUP
+const bookList = document.querySelector('#book-list');
+// Clear out the "Example Title" placeholder
+const placeholder = document.querySelector('#delete-this');
+if (placeholder) placeholder.remove();
+
+// 3. CREATE ELEMENTS FOR EVERY BOOK
+bookStore.books.forEach(book => {
+    // Create the bookContainer (as an <li> since it's inside a <ul>)
+    const bookContainer = document.createElement('li');
+    bookContainer.className = 'card'; // Standard styling
+
+    // Create bookTitle (h3 to match the example in your HTML)
+    const bookTitle = document.createElement('h3');
+    bookTitle.textContent = book.title;
+
+    // Create bookAuthor
+    const bookAuthor = document.createElement('p');
+    bookAuthor.textContent = book.author;
+
+    // Create bookImage
+    const bookImage = document.createElement('img');
+    bookImage.src = book.imageUrl;
+    bookImage.alt = book.title;
+
+    // 4. APPEND ELEMENTS
+    // Append the details to the container
+    bookContainer.append(bookTitle, bookAuthor, bookImage);
+    
+    // Append the container to the existing <ul>
+    bookList.append(bookContainer);
+});
